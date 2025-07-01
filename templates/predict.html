@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Predict Stress{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">Pressure level</h2>
+
+  <!-- Live Values Display -->
+  <div class="mb-4">
+    <p class="fw-bold">Latest Recorded Readings:</p>
+    <div class="row justify-content-center g-3">
+      <div class="col-6 col-md-3">
+        <div class="vital-icon text-center">
+          <i class="fas fa-tachometer-alt fa-2x text-primary"></i>
+          <div class="fw-bold mt-2">Sys BP</div>
+          <div class="text-muted" style="font-size:0.95em;">(Systolic BP)</div>
+          <div id="live-sys" class="mt-1">{{ sys_bp }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="vital-icon text-center">
+          <i class="fas fa-gauge-high fa-2x text-info"></i>
+          <div class="fw-bold mt-2">Dia BP</div>
+          <div class="text-muted" style="font-size:0.95em;">(Diastolic BP)</div>
+          <div id="live-dia" class="mt-1">{{ dia_bp }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="vital-icon text-center">
+          <i class="fas fa-heart fa-2x text-danger heartbeat"></i>
+          <div class="fw-bold mt-2">Heart Rate</div>
+          <div id="live-hr" class="mt-1">{{ heart_rate }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="vital-icon text-center">
+          <i class="fas fa-lungs fa-2x text-success pulse"></i>
+          <div class="fw-bold mt-2">SpO₂</div>
+          <div class="text-muted" style="font-size:0.95em;">(Oxygen Sat.)</div>
+          <div id="live-spo2" class="mt-1">{{ spo2 }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prediction Form -->
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">Systolic BP</label>
+      <input type="number" class="form-control" name="sys_bp" value="{{ sys_bp }}" placeholder="e.g. 120">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Diastolic BP</label>
+      <input type="number" class="form-control" name="dia_bp" value="{{ dia_bp }}" placeholder="e.g. 80">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Heart Rate (BPM)</label>
+      <input type="number" class="form-control" name="heart_rate" value="{{ heart_rate }}" placeholder="e.g. 75">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">SpO₂ (%)</label>
+      <input type="number" class="form-control" name="spo2" value="{{ spo2 }}" placeholder="e.g. 98">
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="submit" name="fetch" value="1" class="btn btn-secondary">Fetch Latest</button>
+      <button type="submit" class="btn btn-primary">Predict</button>
+    </div>
+  </form>
+  {% if graph_url %}
+  <div class="mt-4">
+    <h5>Recent Sensor Trends</h5>
+    <img src="data:image/png;base64,{{ graph_url }}" class="img-fluid" alt="Sensor Trends">
+  </div>
+  {% endif %}
+
+  {% if result %}
+  <div class="alert alert-info mt-4">
+    <strong>Prediction:</strong> {{ result }}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

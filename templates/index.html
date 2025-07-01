@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+  <h2 class="mb-4">Welcome to the Stress Prediction Dashboard</h2>
+  <p>This dashboard allows you to register, log in, and use the prediction tool to determine stress levels using vital signs like:</p>
+  <div class="row justify-content-center my-4">
+    <div class="col-6 col-md-3 mb-3">
+      <div class="vital-icon">
+        <i class="fas fa-tachometer-alt fa-3x text-primary"></i>
+        <p class="mt-2"><strong>Sys BP</strong> <br><span class="text-muted">(Systolic Blood Pressure)</span></p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <div class="vital-icon">
+        <i class="fas fa-gauge-high fa-3x text-info"></i>
+        <p class="mt-2"><strong>Dia BP</strong> <br><span class="text-muted">(Diastolic Blood Pressure)</span></p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <div class="vital-icon">
+        <i class="fas fa-heart fa-3x text-danger heartbeat"></i>
+        <p class="mt-2"><strong>Heart Rate</strong></p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+      <div class="vital-icon">
+        <i class="fas fa-lungs fa-3x text-success pulse"></i>
+        <p class="mt-2"><strong>SpO₂</strong> <br><span class="text-muted">(Oxygen Saturation)</span></p>
+      </div>
+    </div>
+  </div>
+  {% if 'user' not in session %}
+  <p class="mt-4">
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Get Started</a>
+  </p>
+  {% endif %}
+</div>
+{% endblock %}
