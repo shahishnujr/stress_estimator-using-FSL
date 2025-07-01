@@ -1,4 +1,4 @@
-# Stress Predictor IoT & AI System
+# Stress Predictor using few shot learning
 
 This project is an **IoT-enabled health monitoring system** that predicts user stress levels based on real-time physiological sensor data (blood pressure, heart rate, SpO₂). The system uses a custom-trained Prototypical Network (ProtoNet) deep learning model and provides a user-friendly web interface for monitoring and prediction.
 
